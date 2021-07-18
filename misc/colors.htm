@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="canvas" width="400" height="400">
+Your browser does not support the HTML canvas tag.
+</canvas>
+
+<script>
+
+function draw() {
+
+  var ctx = document.getElementById('canvas').getContext('2d');
+
+  var c = 255;
+
+  for (var i = 0; i < 4; i++) {
+    
+	ctx.fillStyle = 'rgb(' + c + ', 0, 0)'	
+	ctx.beginPath();
+    ctx.arc(50 + i*100, 50, 40, 0, Math.PI * 2, true);
+    ctx.fill();
+	
+	ctx.fillStyle = 'rgb(0, ' + c + ', 0)'	
+	ctx.beginPath();
+    ctx.arc(50 + i*100, 150, 40, 0, Math.PI * 2, true);
+    ctx.fill();
+	
+	ctx.fillStyle = 'rgb(0, 0, ' + c + ')'	
+	ctx.beginPath();
+    ctx.arc(50 + i*100, 250, 40, 0, Math.PI * 2, true);
+    ctx.fill();
+	
+	ctx.fillStyle = 'rgb(' + c + ',' + c + ',' + c +')'	
+	ctx.beginPath();
+    ctx.arc(50 + i*100, 350, 40, 0, Math.PI * 2, true);
+    ctx.fill();
+	
+	c = Math.max(c - 32, 0);
+  }
+  
+  ctx.beginPath();
+  ctx.arc(50, 350, 40, 0, Math.PI * 2, true);
+  ctx.stroke();
+  
+}
+
+draw();
+
+</script>
+
+</body>
+</html>

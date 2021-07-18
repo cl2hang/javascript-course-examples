@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="canvas" width="500" height="500" style="border:1px solid #000000;">
+Your browser does not support the HTML canvas tag.
+</canvas>
+
+<script>
+
+function draw() {
+	var ctx = document.getElementById('canvas').getContext('2d');
+
+	// set transparency value
+	ctx.globalAlpha = 0.5;
+
+	ctx.beginPath();
+    ctx.arc(250, 190, 140, 0, Math.PI * 2, true);
+	ctx.fillStyle = '#f57242';
+    ctx.fill();
+	
+	ctx.beginPath();
+    ctx.arc(198, 280, 140, 0, Math.PI * 2, true);
+	ctx.fillStyle = '#42e9f5';
+    ctx.fill();
+
+	ctx.beginPath();
+    ctx.arc(302, 280, 140, 0, Math.PI * 2, true);
+	ctx.fillStyle = '#f54296';
+    ctx.fill();
+	
+	ctx.beginPath();
+    ctx.arc(250, 250, 140, 0, Math.PI * 2, true);
+	ctx.fillStyle = '#42f55a';
+    ctx.fill();
+
+	ctx.globalAlpha = 1.0;
+
+	ctx.beginPath();
+    ctx.arc(250, 250, 100, 0, Math.PI * 2, true);
+    ctx.fillStyle = '#fff';
+	ctx.fill();	
+	
+}
+
+draw();
+
+</script>
+
+</body>
+</html>
