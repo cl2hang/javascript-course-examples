@@ -29,6 +29,11 @@ In practice, the code we will add uses the following statements:
 - __`ctx.globalAlpha=n.n`__ setting transparency. The value of __`n.n`__ is from 0.0 (totally transparent) to 1.1 (totally opaque).
 
 
+### 4 Practice
+
+- [Web page template](./template.htm)
+- [Squares and water waves](./square_water_pool.htm) 
+
 ### 4. Homework
 
 - Repeat the example code in the lesson.
