@@ -1,17 +1,21 @@
 # JavaScript
 
-## Lesson 2 - What is a web page?
+## Lesson 2 - Web pages
 
-### 1. How it works (more detailed)
+### 1. Recall: how it works
 
 - We explore web sites by using the __browser__ on our computer or hand-held device to retrieve __web pages__
-- We can see each web site as a collection of interconnected (by __hyperlinks__) web pages, staticly stored or dynamically generated.
+- We can see each __web site__ on the Internet as a collection of interconnected (by __hyperlinks__) web pages, staticly stored or dynamically generated.
 - Each web page has a unique address, called __URL__. A browser retrieves a web page by providing the URL.    
 
 ### 2. What's in a web page?
 
-- A web page is a text file.
-- The content of a web page normally consists three parts: (1) __HTML__ markup containing the information to be shown for user; (2) __CSS__ stylesheet controlling the rendering of the web page content; (3) __Javascript__ script makes the web page interactive. 
+- A web page is a text file. It's content is executable by a browser.
+- A web page normally contains three types of code: 
+	- __HTML__ markup conveying the information
+	- __CSS__ stylesheet controlling the rendering of the web page content
+	- __Javascript__ script makes the web page interactive. 
+		
 
 ### 3. More Canvas API
 
