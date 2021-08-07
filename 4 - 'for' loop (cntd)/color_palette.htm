@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="canvas" width="400" height="400" style="border:1px solid #000000;">
+Your browser does not support the HTML canvas tag.
+</canvas>
+
+<script>
+
+function draw() {
+  var ctx = document.getElementById('canvas').getContext('2d');
+  
+  var x = 5;
+  var r = 235;  
+  for(let i=0; i<10; i++) {
+  	
+  	var y = 5;
+  	var g = 235;
+  	
+  	for(let j=0; j<10; j++) {
+	  	ctx.fillStyle = 'rgb(' + r + ',' + g + ',0)';
+	  	ctx.fillRect(x, y, 30, 30);
+	  	
+	  	y = y + 40;
+	  	g = g - 20;
+  	}
+  	
+  	x = x + 40;
+  	r = r - 20;
+  }
+  
+}
+
+draw();
+
+</script>
+
+</body>
+</html>
