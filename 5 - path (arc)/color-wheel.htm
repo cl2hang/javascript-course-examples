@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Color Wheel</title>
+		
+		<script>
+			
+			//javascript code goes here
+			function draw() {
+			
+				var ctx = document.getElementById('my_canvas').getContext('2d');
+				
+				ctx.lineWidth = 50;
+				
+				var angle = 0;
+				var r = 255;
+				var g = 0;
+				var b = 80;
+				
+				for(let i=0; i<8; i++) {
+					ctx.strokeStyle = "rgb(" + r + "," + g + "," + b + ")";
+					ctx.beginPath();
+					ctx.arc(200, 200, 100, angle, angle + Math.PI/4, false);
+					ctx.stroke();
+					
+					angle += Math.PI / 4;
+					r -= 30;
+					g += 30;
+					b = 240 - b;
+				}
+			
+			}
+			
+		</script>
+		
+	</head>
+	
+	<body onload="draw()">
+	
+		<canvas id="my_canvas" width="400" height="400" style="border:1px solid black;">
+		</canvas>
+	
+	</body>
+
+</html>

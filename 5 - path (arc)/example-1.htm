@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Example 1</title>
+		
+		<script>
+			
+			//javascript code goes here
+			function draw() {
+			
+				var ctx = document.getElementById('my_canvas').getContext('2d');
+				
+				ctx.beginPath();
+				ctx.arc(200, 200, 100, 0, Math.PI, true);
+				ctx.fill();
+				//ctx.stroke();
+			
+			}
+			
+		</script>
+		
+	</head>
+	
+	<body onload="draw()">
+	
+		<canvas id="my_canvas" width="400" height="400" style="border:1px solid black;">
+		</canvas>
+	
+	</body>
+
+</html>
