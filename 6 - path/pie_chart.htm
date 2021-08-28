@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Pie Chart</title>
+		
+		<script>
+			
+			//draw a three-component pie chart (color as red, green and blue, respectively)
+			//ctx as the context
+			//(cx,cy) as the center of the pie chart, the radius is fixed as 50 
+			// a, b and c represent the portions (a + b + c = 100)
+			function draw_pie_chart(ctx, cx, cy, a, b, c) {
+				
+				//initial angles
+				var a1 = 0;
+				var a2 = 2 * Math.PI * a / 100;
+				
+				//2px white space 
+				ctx.strokeStyle = "#ffffff";
+				ctx.lineWidth = 2;
+				
+				//red pie
+				ctx.fillStyle = "#ff0000"
+				ctx.beginPath();
+				ctx.arc(cx, cy, 50, a1, a2, false);
+				ctx.lineTo(cx, cy);
+				ctx.closePath();
+				ctx.fill();
+				ctx.stroke();
+				
+				//adjust angles
+				a1 = a2;
+				a2 += 2 * Math.PI * b / 100;
+				
+				//green pie
+				ctx.fillStyle = "#00ff00"
+				ctx.beginPath();
+				ctx.arc(cx, cy, 50, a1, a2, false);
+				ctx.lineTo(cx, cy);
+				ctx.closePath();
+				ctx.fill();
+				ctx.stroke();
+
+				//adjust angles
+				a1 = a2;
+				a2 = 2 * Math.PI;
+
+				//blue pie
+				ctx.fillStyle = "#0000ff"
+				ctx.beginPath();
+				ctx.arc(cx, cy, 50, a1, a2, false);
+				ctx.lineTo(cx, cy);
+				ctx.closePath();
+				ctx.fill();
+				ctx.stroke();
+			}
+			
+			//javascript code goes here
+			function draw() {
+			
+				var ctx = document.getElementById('my_canvas').getContext('2d');
+				
+				draw_pie_chart(ctx, 100, 100, 20, 40, 40);
+				draw_pie_chart(ctx, 100, 300, 50, 40, 10);
+				draw_pie_chart(ctx, 300, 100, 33, 33, 34);
+				draw_pie_chart(ctx, 300, 300, 80, 10, 10);
+			
+			}
+			
+		</script>
+		
+	</head>
+	
+	<body onload="draw()">
+	
+		<canvas id="my_canvas" width="400" height="400" style="border:1px solid black;">
+		</canvas>
+	
+	</body>
+
+</html>

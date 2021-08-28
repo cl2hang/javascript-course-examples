@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Digits (1-9)</title>
+		
+		<script>
+		
+			/*
+			 * draw digit figure 0~9 in a 20*30 area
+			 * (x,y) gives the left-top corner of the area
+			 */
+			
+			// draw ONE
+			function draw_one(ctx, x, y) {
+				
+				ctx.beginPath();
+				ctx.moveTo(x+6, y+8);
+				ctx.lineTo(x+11, y+4);
+				ctx.lineTo(x+11, y+26);
+				ctx.stroke();
+			}
+			
+			// draw TWO
+			function draw_two(ctx, x, y) {
+				
+				ctx.beginPath();
+				ctx.arc(x + 10, y + 9, 5, Math.PI, 2.25 * Math.PI, false);
+				ctx.lineTo(x+4, y+26);
+				ctx.lineTo(x+16, y+26);
+				ctx.stroke();
+			}
+			
+			// draw THREE
+			function draw_three(ctx, x, y) {
+				
+				ctx.beginPath();
+				ctx.arc(x + 9, y + 9, 5, -2 * Math.PI / 3, Math.PI / 2, false);
+				ctx.lineTo(x+5, y+14);
+				ctx.arc(x + 9, y + 20, 6, -Math.PI / 2, 0.75 * Math.PI, false);
+				//ctx.lineTo(x+16, y+26);
+				ctx.stroke();
+			}
+			
+			// draw FOUR
+			function draw_four(ctx, x, y) {
+				
+				ctx.beginPath();
+				ctx.moveTo(x+16, y+22);
+				ctx.lineTo(x+4, y+22);
+				ctx.lineTo(x+12, y+4);
+				ctx.lineTo(x+12, y+26);
+				ctx.stroke();
+			}
+			
+			
+			// draw FIVE
+			function draw_five(ctx, x, y) {
+				
+				ctx.beginPath();
+				ctx.arc(x + 10, y + 20, 6, 2 * Math.PI / 3, 1.25 * Math.PI, true);
+				ctx.lineTo(x+7, y+5);
+				ctx.lineTo(x+16, y+5);
+				ctx.stroke();
+			}
+			
+
+			// draw SIX
+			function draw_six(ctx, x, y) {
+				
+				ctx.beginPath();
+				ctx.arc(x + 20, y + 20, 16, Math.PI, 1.36 * Math.PI, false);
+				ctx.stroke();
+				
+				ctx.beginPath();
+				ctx.arc(x + 10, y + 20, 6, 0, 2 * Math.PI, true);
+				ctx.stroke();
+			}
+			
+			// draw SEVEN
+			function draw_seven(ctx, x, y) {
+				
+				ctx.beginPath();
+				ctx.moveTo(x+5, y+5);
+				ctx.lineTo(x+16, y+5);
+				ctx.lineTo(x+12, y+26);
+				ctx.stroke();
+			}
+			
+			// draw EIGHT
+			function draw_eight(ctx, x, y) {
+			
+				ctx.beginPath();
+				ctx.arc(x + 10, y + 9, 5, 0, 2 * Math.PI, true);
+				ctx.stroke();
+				
+				ctx.beginPath();
+				ctx.arc(x + 10, y + 20, 6, 0, 2 * Math.PI, true);
+				ctx.stroke();
+				
+			}
+			
+			// draw NINE
+			function draw_nine(ctx, x, y) {
+				
+				ctx.beginPath();
+				ctx.arc(x, y + 10, 16, 0, 0.36 * Math.PI, false);
+				ctx.stroke();
+				
+				ctx.beginPath();
+				ctx.arc(x + 10, y + 10, 6, 0, 2 * Math.PI, true);
+				ctx.stroke();				
+			}
+			
+			// draw ZERO
+			function draw_zero(ctx, x, y) {
+				
+				ctx.beginPath();
+				ctx.arc(x + 10, y + 20, 5, 0, Math.PI, false);
+				ctx.lineTo(x +5, y + 10);
+				ctx.arc(x + 10, y + 10, 5, Math.PI, 2 * Math.PI, false);
+				ctx.closePath();
+				ctx.stroke();
+				
+			}
+			
+			//javascript code goes here
+			function draw() {
+			
+				var ctx = document.getElementById('my_canvas').getContext('2d');
+				
+				ctx.strokeStyle = "#ff00ff";
+				
+				draw_one(ctx, 10, 100);
+				draw_two(ctx, 50, 100);
+				draw_three(ctx, 90, 100);
+				draw_four(ctx, 130, 100);
+				draw_five(ctx, 170, 100);
+				draw_six(ctx, 210, 100);
+				draw_seven(ctx, 250, 100);
+				draw_eight(ctx, 290, 100);
+				draw_nine(ctx, 330, 100);
+				draw_zero(ctx, 370, 100);
+			}
+			
+		</script>
+		
+	</head>
+	
+	<body onload="draw()">
+	
+		<canvas id="my_canvas" width="400" height="400" style="border:1px solid black;">
+		</canvas>
+	
+	</body>
+
+</html>
