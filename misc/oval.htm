@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Nest</title>
+		<title>Oval</title>
 		
 		<script>
 			
@@ -10,17 +10,9 @@
 			
 				var ctx = document.getElementById('my_canvas').getContext('2d');
 				
-				ctx.globalAlpha = 0.05;
-				
-				var angle = 0;
-				
-				for(let i=0; i<40; i++) {				
-					ctx.beginPath();
-					ctx.arc(200, 200, 160, angle + Math.PI/6, angle + Math.PI*5/6, false);
-					ctx.fill();
-					
-					angle += Math.PI / 20;
-				}
+				ctx.beginPath();
+				ctx.ellipse(100, 100, 100, 50, 0, 0, 2 * Math.PI);
+				ctx.fill();
 			
 			}
 			

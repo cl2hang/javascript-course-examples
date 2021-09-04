@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Estimate Math.PI</title>
+	<script>
+	
+	function draw_cross(ctx, x, y, color) {
+		ctx.strokeStyle = color;
+		ctx.beginPath();
+		ctx.moveTo(x-4, y);
+		ctx.lineTo(x+4, y);
+		ctx.moveTo(x, y-4);
+		ctx.lineTo(x, y+4);
+		ctx.stroke();
+	}
+	
+	function draw(){
+		
+		var ctx = document.getElementById("my_canvas").getContext("2d");
+		var total = 100;
+		var match = 0;
+		
+		
+		for(let i=0; i<total; i++) {
+			var x = Math.floor(Math.random() * 401);
+			var y = Math.floor(Math.random() * 401);
+			var r = (x-200)*(x-200) + (y-200)*(y-200);
+			if(r<=40000) {
+				draw_cross(ctx, x, y, "#ff0000");
+				match++;
+			} else {
+				draw_cross(ctx, x, y, "#00ff00");
+			}
+			
+		}
+		
+		var pi = match / total * 4;
+		alert("Math.PI=" + pi);
+
+	}
+		
+	</script>
+</head>
+
+<body onload="draw()">
+	<canvas id="my_canvas" width="400" height="400" style="border:solid black 1px;" />
+</body>
+
+</html>

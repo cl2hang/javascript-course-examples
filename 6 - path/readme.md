@@ -30,8 +30,9 @@ Path API:
     ctx.moveTo(x,y);
     ctx.lineTo(x,y);
     ctx.arc(cx, cy, r, a1, a2, dir);
-    //ctx.arcTo(x1, y1, x2, y2, r);
-	
+    //ctx.arcTo(...);
+	//ctx.ellipse(...);
+	//...	
     ctx.closePath();
 	
     //render the path	

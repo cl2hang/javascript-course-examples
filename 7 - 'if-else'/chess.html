@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Chess</title>
+	<script>
+	
+	function draw(){
+		
+		var ctx = document.getElementById("my_canvas").getContext("2d");
+		
+		var y = 0;
+		for(let i=0; i<8; i++) {
+			var x = 0;
+			for(let j=0; j<8; j++) {
+			
+				if((i+j)%2==0)
+					ctx.fillStyle="#ffffff";
+				else
+					ctx.fillStyle="#55bd70";
+			
+				ctx.fillRect(x, y, 50, 50);
+				x += 50;
+			}
+			y += 50;
+		}
+
+	}
+		
+	</script>
+</head>
+
+<body onload="draw()">
+	<canvas id="my_canvas" width="400" height="400" style="border:solid black 1px;" />
+</body>
+
+</html>
