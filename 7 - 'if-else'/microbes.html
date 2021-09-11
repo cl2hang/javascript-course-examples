@@ -6,13 +6,6 @@
 	<title>Microbes</title>
 	<script>
 	
-	function draw_ring(ctx, x, y, r, rr, gg, bb) {
-		ctx.strokeStyle = "rgb(" + rr + "," + gg + "," + bb + ")";
-		ctx.beginPath();
-		ctx.arc(x, y, r, 0, 2*Math.PI, true);
-		ctx.stroke();
-		ctx.fill();
-	}
 	
 	function draw(){
 		
@@ -24,7 +17,7 @@
 		ctx.fillStyle = "#505050";
 		ctx.lineWidth = 4;
 		
-		for(let i=0; i<1000; i++) {
+		for(let i=0; i<100; i++) {
 		
 			var x = Math.floor(Math.random() * 401);
 			var y = Math.floor(Math.random() * 401);
@@ -33,15 +26,16 @@
 			var rr = Math.floor(Math.random() * 256);
 			var gg = Math.floor(Math.random() * 256);
 			var bb = Math.floor(Math.random() * 256);
-		
-			var f = Math.random();
-			if(f>=0.8){
-				var r = Math.floor(Math.random() * 10) + 1;
-				draw_ring(ctx, x, y, r, rr, gg, bb);
-			} else {
-				var r = Math.floor(Math.random() * 3) + 1;
-				draw_ring(ctx, x, y, r, rr, gg, bb);
-			}	
+				
+			var r = Math.floor(Math.random() * 5) + 5;
+			
+			ctx.strokeStyle = "rgb(" + rr + "," + gg + "," + bb + ")";
+			
+			ctx.beginPath();
+			ctx.arc(x, y, r, 0, 2*Math.PI, true);
+			ctx.stroke();
+			ctx.fill();
+				
 		}
 
 	}
