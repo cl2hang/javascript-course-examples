@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Rotate Example</title>
+	<script>
+	
+	
+	function draw(){
+		
+		var ctx = document.getElementById("my_canvas").getContext("2d");
+		
+		ctx.strokeStyle = "#0000ff";
+
+		ctx.translate(200, 200);
+
+		
+		for(let i=0; i<200; i++) {
+		
+			var degree = Math.floor(Math.random() * 360);
+			var x = Math.floor(Math.random() * 200);
+			
+			ctx.rotate(Math.PI / 180 * degree);
+			
+			ctx.beginPath();
+			ctx.moveTo(0, 0);
+			ctx.lineTo(x, 0);
+			ctx.stroke();
+				
+		}
+
+	}
+		
+	</script>
+</head>
+
+<body onload="draw()">
+	<canvas id="my_canvas" width="400" height="400" style="border:solid black 1px;" />
+</body>
+
+</html>
