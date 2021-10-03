@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Text</title>
+	<script>
+	
+
+	
+	function draw(){
+		
+		var ctx = document.getElementById('my_canvas').getContext('2d');
+		//ctx.font = '48px serif';
+		//ctx.font = '32px courier new';
+		//ctx.font = 'bold 24px arial';
+		//ctx.font = 'italic 16px times new roman';
+		ctx.font = 'italic bold 32px helvetica';
+		ctx.fillText('Hello world', 80, 150);
+		ctx.strokeText('Hello world', 80, 250);
+
+	}
+		
+	</script>
+</head>
+
+<body onload="draw()">
+	<canvas id="my_canvas" width="400" height="400" style="border:solid black 1px;"></canvas>
+</body>
+
+</html>

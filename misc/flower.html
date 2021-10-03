@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Flower</title>
+	<script>
+	
+	var ctx;
+	
+	function draw_stem(){
+
+		ctx.fillStyle = "#00ff00";
+				
+		for(let i=0; i<50; i++) {
+		
+			var x = Math.floor(Math.random() * 31) - 15;
+			var y = Math.floor(Math.random() * 11) - 10;
+
+			ctx.translate(x, y);
+			
+			ctx.beginPath();
+			ctx.arc(0, 0, 5, 0, 2*Math.PI, true);
+			ctx.fill();				
+		}
+	}
+	
+	function draw_flower(color){
+		
+		ctx.strokeStyle = color;
+		
+		for(let i=0; i<200; i++) {
+		
+			var degree = Math.floor(Math.random() * 360);
+			var x = Math.floor(Math.random() * 100);
+			
+			ctx.rotate(Math.PI / 180 * degree);
+			
+			ctx.beginPath();
+			ctx.moveTo(0, 0);
+			ctx.lineTo(x, 0);
+			ctx.stroke();
+				
+		}
+	}
+	
+	function draw(){
+
+		//todo: your code goes here
+		ctx = document.getElementById("my_canvas").getContext("2d");
+
+		ctx.translate(200, 600);
+		
+		ctx.save();
+		draw_stem();
+		//ctx.save();
+		draw_flower("#ff0000");
+		//ctx.restore();
+		ctx.restore();
+		
+		ctx.save();
+		draw_stem();
+		draw_flower("#0000ff");
+		ctx.restore();
+		
+		alert("hello");
+		
+	}
+		
+	</script>
+</head>
+
+<body onload="draw()">
+	<canvas id="my_canvas" width="400" height="600" style="border:solid black 1px;" />
+</body>
+
+</html>

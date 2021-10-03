@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Words Wall</title>
+	<script>
+	
+	var ctx;
+	
+	function draw_word(word, tx, ty, angle, ratio, color) {
+	
+		ctx.save();
+		ctx.fillStyle = color;
+		ctx.translate(tx, ty);
+		ctx.rotate(angle * Math.PI / 180);
+		ctx.scale(ratio, ratio);
+		ctx.fillText(word, 0, 0);
+		ctx.restore();
+	}
+	
+	function draw(){
+		
+		ctx = document.getElementById("my_canvas").getContext("2d");
+		
+		draw_word("games", 100, 200, 0, 5.0, "#63a5db");
+		draw_word("love", 140, 70, 60, 4.5, "#a9d6fc");
+		draw_word("writing", 180, 40, 30, 3.5, "#f7ba5e");
+		draw_word("reading", 320, 275, -60, 3.5, "#90ed5a");
+		draw_word("travel", 360, 110, -30, 2.0, "#0a0a91");
+		draw_word("art", 220, 165, 0, 3.0, "#82072a");
+		draw_word("fun", 245, 130, 30, 1.5, "#82072a");
+
+	}
+		
+	</script>
+</head>
+
+<body onload="draw()">
+	<canvas id="my_canvas" width="480" height="300" style="border:solid black 1px;"></canvas>
+	<image src="./words_wall.jpg" width="480"/>
+	<br>
+	<image src="./words_wall.jpg" width="480"/>
+</body>
+
+</html>
