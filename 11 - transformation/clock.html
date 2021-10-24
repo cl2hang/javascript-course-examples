@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Clock</title>
+	<script>
+	
+	var ctx;
+	var HOUR_ANGLE = Math.PI / 6;
+	var MIN_SEC_ANGLE = Math.PI / 30;
+
+	
+	function draw_clock(hh, mm, ss){
+	
+		var hour = hh * 1.0 + mm / 60.0 + ss / 3600.0;
+		var minute = mm + ss / 60.0;
+		var sec = ss;
+
+		ctx.save();
+		
+		//center to canvas, X-top, Y-right
+		ctx.translate(200, 200);
+		ctx.rotate(-Math.PI / 2);
+		
+		//border	
+		ctx.save();
+		ctx.lineWidth = 30;
+		ctx.strokeStyle = "#cccac4";
+		ctx.fillStyle = "#ffffff";
+		ctx.beginPath();
+		ctx.arc(0, 0, 180, 0, 2 * Math.PI, true);
+		ctx.stroke();
+		ctx.fill();
+		ctx.restore();
+		
+		//minute / second scales
+		ctx.save();
+		ctx.fillStyle = "#e6b932";
+		for(let i=0; i<60; i++) {
+			ctx.beginPath();
+			ctx.arc(165, 0, 2, 0, 2 * Math.PI, true);
+			ctx.fill();
+			ctx.rotate(MIN_SEC_ANGLE);
+		}
+		ctx.restore();
+		
+		//hour scale
+		ctx.save();
+		ctx.fillStyle = "#e6b932";
+		for(let i=0; i<12; i++) {
+			ctx.fillRect(155, -2, 15, 4);
+			ctx.rotate(HOUR_ANGLE);
+		}
+		ctx.restore();
+		
+		//hour labels
+		ctx.save();	
+		ctx.textAlign = "center";		
+		ctx.textBaseline = "middle";
+		for(let i=0; i<12; i++) {
+			ctx.rotate(Math.PI / 6);
+			
+			ctx.save();
+			ctx.translate(135, 0);
+			ctx.rotate(Math.PI /2 - HOUR_ANGLE * (i+1));
+			ctx.scale(3.0, 2.5);
+			ctx.fillText(i+1, 0, 0);
+			ctx.restore();
+		}
+		ctx.restore();
+		
+		//hour handle
+		ctx.save();
+		ctx.fillStyle="#000000";
+		ctx.rotate(HOUR_ANGLE * hour);
+		ctx.fillRect(-10, -6, 105, 12);
+		ctx.restore();
+		
+		//minute handle
+		ctx.save();
+		ctx.fillStyle="#000000";
+		ctx.rotate(MIN_SEC_ANGLE * minute);
+		ctx.fillRect(-10, -4, 125, 8);
+		ctx.restore();
+
+		//second handle
+		ctx.fillStyle="#ff0000";
+				
+		ctx.save();
+		ctx.rotate(MIN_SEC_ANGLE * sec);
+		
+		ctx.beginPath();
+		ctx.arc(0, 0, 4, 0, 2 * Math.PI, true);
+		ctx.fill();
+		
+		ctx.beginPath();
+		ctx.moveTo(-40, -2);
+		ctx.lineTo(-15, -2);
+		ctx.lineTo(-13, -1);
+		ctx.lineTo(140, -1);
+		ctx.lineTo(140, 1);
+		ctx.lineTo(-13, 1);
+		ctx.lineTo(-15, 2);
+		ctx.lineTo(-40, 2);
+		ctx.closePath();
+		ctx.fill();
+		
+		ctx.restore();
+
+		ctx.restore();
+
+	}
+
+	
+	function start(){
+	
+		ctx = document.getElementById("my_canvas").getContext("2d");
+		
+		window.setInterval(function() {
+			var now = new Date();
+			draw_clock(now.getHours(), now.getMinutes(), now.getSeconds());
+		}, 1000);
+	}
+		
+	</script>
+</head>
+
+<body onload="start()">
+	<canvas id="my_canvas" width="400" height="400"></canvas>
+</body>
+
+</html>
