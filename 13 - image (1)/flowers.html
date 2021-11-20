@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Flowers</title>
+	<script>
+	
+	var ctx;
+	var image;
+	
+	function draw_flower_A(){
+		ctx.drawImage(image, 25, 20, 630, 565, -55, -50, 110, 100);
+	}
+	
+	function draw_flower_B(){
+		ctx.drawImage(image, 670, 20, 630, 565, -55, -50, 110, 100);
+	}
+	
+	function draw_flower_C(){
+		ctx.drawImage(image, 1315, 20, 630, 565, -55, -50, 110, 100);
+	}
+	
+	function draw_flower_D(){
+		ctx.drawImage(image, 345, 655, 630, 565, -55, -50, 110, 100);
+	}
+	
+	function draw_flower_E(){
+		ctx.drawImage(image, 990, 655, 630, 565, -55, -50, 110, 100);
+	}
+
+	
+	function draw(){
+		ctx = document.getElementById("my_canvas").getContext("2d");
+		image = document.getElementById("img_flowers");
+		
+		for(let i=0; i<200; i++) {
+			ctx.save();
+			var x = Math.floor(Math.random() * 1401);
+			var y = Math.floor(Math.random() * 801);
+			var a = Math.floor(Math.random() * 360) * Math.PI / 180;
+			var type = Math.floor(Math.random() * 5);
+			
+			ctx.translate(x,y);
+			ctx.rotate(a);
+			
+			if(type==0)
+				draw_flower_A();
+			else if(type==1)	
+				draw_flower_B();
+			else if(type==2)	
+				draw_flower_C();
+			else if(type==3)	
+				draw_flower_D();				
+			else
+				draw_flower_E();
+				
+			ctx.restore();
+		}
+		
+	}
+		
+	</script>
+</head>
+
+<body onload="draw()">
+
+	<canvas id="my_canvas" width="1400" height="800"></canvas>
+	<img id="img_flowers" src="asset/flowers.png" width=400 style="display:none;"/>
+	
+</body>
+
+</html>

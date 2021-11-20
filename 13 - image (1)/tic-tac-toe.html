@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Tic-Tac-Toe</title>
+	<script>
+	
+	var ctx;
+	var image_circle;
+	var image_cross;
+	
+	function draw_board(){
+		ctx.fillStyle = "#fcdc5b";
+		ctx.fillRect(0, 0, 500, 400);
+		
+		ctx.globalAlpha = 0.5;
+		ctx.lineWidth = 8;
+		ctx.strokeStyle = "#ffffff";
+		
+		ctx.beginPath();
+		ctx.moveTo(100-4, 50);
+		ctx.lineTo(400+4, 50);
+		ctx.moveTo(100, 150);
+		ctx.lineTo(400, 150);
+		ctx.moveTo(100, 250);
+		ctx.lineTo(400, 250);
+		ctx.moveTo(100-4, 350);
+		ctx.lineTo(400+4, 350);
+		ctx.moveTo(100, 50);
+		ctx.lineTo(100, 350);
+		ctx.moveTo(200, 50);
+		ctx.lineTo(200, 350);
+		ctx.moveTo(300, 50);
+		ctx.lineTo(300, 350);
+		ctx.moveTo(400, 50);
+		ctx.lineTo(400, 350);
+		ctx.stroke();
+		
+		ctx.globalAlpha = 1;
+	}
+	
+	function draw_circle(cx, cy) {	
+		ctx.drawImage(image_circle, cx-30, cy-30, 60, 60);
+	}
+	
+	function draw_cross(cx, cy) {
+		ctx.drawImage(image_cross, cx-30, cy-30, 60, 60);
+	}
+	
+	function draw_chess(r, c, is_circle) {
+
+		var cx = c * 100 + 50;
+		var cy = r * 100;
+			
+		if(is_circle)
+			draw_circle(cx, cy);
+		else
+			draw_cross(cx, cy);
+	}
+	
+	function init(){
+		ctx = document.getElementById("my_canvas").getContext("2d");
+		image_circle = document.getElementById("img_circle");
+		image_cross = document.getElementById("img_cross");
+		draw_board();
+
+	}
+		
+	</script>
+</head>
+
+<body onload="init()">
+
+	<table>
+		<tr>
+			<td colspan="7">
+				<canvas id="my_canvas" width="500" height="400" style="border:solid black 1px;" />
+			</td>
+		</tr>
+
+		<tr>
+			<td><button onclick="draw_chess(1,1,false)">x</button></td>
+			<td><button onclick="draw_chess(1,2,false)">x</button></td>
+			<td><button onclick="draw_chess(1,3,false)">x</button></td>
+			<td style="width:350px;"/>
+			<td><button onclick="draw_chess(1,1,true)">o</button></td>
+			<td><button onclick="draw_chess(1,2,true)">o</button></td>
+			<td><button onclick="draw_chess(1,3,true)">o</button></td>
+		</tr>
+		
+		<tr>
+			<td><button onclick="draw_chess(2,1,false)">x</button></td>
+			<td><button onclick="draw_chess(2,2,false)">x</button></td>
+			<td><button onclick="draw_chess(2,3,false)">x</button></td>
+			<td style="width:350px;"/>
+			<td><button onclick="draw_chess(2,1,true)">o</button></td>
+			<td><button onclick="draw_chess(2,2,true)">o</button></td>
+			<td><button onclick="draw_chess(2,3,true)">o</button></td>
+		</tr>
+		
+		<tr>
+			<td><button onclick="draw_chess(3,1,false)">x</button></td>
+			<td><button onclick="draw_chess(3,2,false)">x</button></td>
+			<td><button onclick="draw_chess(3,3,false)">x</button></td>
+			<td style="width:350px;"/>
+			<td><button onclick="draw_chess(3,1,true)">o</button></td>
+			<td><button onclick="draw_chess(3,2,true)">o</button></td>
+			<td><button onclick="draw_chess(3,3,true)">o</button></td>
+		</tr>
+		
+	</table>
+	
+	<img id="img_circle" src="asset/circle.png" width=200 height=200 style="display:none;"/>
+	<img id="img_cross" src="asset/cross.png" width=200 height=200 style="display:none;"/>
+	
+</body>
+
+</html>
