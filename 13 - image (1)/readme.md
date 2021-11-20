@@ -58,7 +58,37 @@ When only `dx` and `dy` are given, the size of the canvas area is the original s
 __Example 1__: redo the Tic-tac-toe example with images as the chess bits.
 __Example 2__: flower wall.
 	
-### 5. Practice
+### 3. `switch-case` Statements
+
+It's a good chance to think about the `switch-case` clause instead of a long `if-else` statement when we have to deal with multiple choices. For example, if we want to do something if the target object is red, do some other things when it's gree,. and other actions for other colors. Just like the following:
+
+```
+	int color_code;  // 0-red, 1-green, 2-blue, 3- ...
+
+	...
+
+	switch(color_code) {
+		case 0:
+			...
+			break;
+		case 1:
+			...
+			break;
+		case 2:
+			...
+			break;
+		case 3:
+		case 4:
+			...
+			break;
+		default:
+			...
+	}
+``` 
+
+For this code, the browser will check the `color_code` value and run the corresponding execution under the `case` labels until it meets a `break`. When no `break` is found, it will go through to the code in the next case block. If no case block is matched, the code under `default` will be executed. So, in this example, we have the same execution for cases 3 and 4. 
+	
+### 4. Practice
 
 Following the idea of Example 2, Draw a wall of alphabets (from the given image in the "asset" folder). Use all three types of transformation while drawing.
 	
