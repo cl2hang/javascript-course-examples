@@ -1,6 +1,6 @@
 # JavaScript
 
-## Lesson 14 - Mix images with shapes (1) 
+## Lesson 14 - Mix images with shapes
 
 ### 1. Recall: 
 
