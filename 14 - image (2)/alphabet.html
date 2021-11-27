@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Alphabet</title>
+	<script>
+	
+	var ctx;
+	var image;
+	
+	function draw_A(){
+		ctx.drawImage(image, 100, 30, 150, 200, -40, -60, 80, 120);
+	}
+	
+	function draw_E(){
+		ctx.drawImage(image, 960, 30, 150, 200, -40, -60, 80, 120);
+	}
+	
+	function draw_I(){
+		ctx.drawImage(image, 740, 220, 150, 200, -40, -60, 80, 120);
+	}
+	
+	function draw_O(){
+		ctx.drawImage(image, 955, 415, 150, 200, -40, -60, 80, 120);
+	}
+	
+	function draw_U(){
+		ctx.drawImage(image, 100, 795, 150, 200, -40, -60, 80, 120);
+	}
+
+	
+	function draw(){
+		ctx = document.getElementById("my_canvas").getContext("2d");
+		image = document.getElementById("img_alphabet");
+		
+		for(let i=0; i<100; i++) {
+
+			ctx.save();
+
+			var x = Math.floor(Math.random() * 801);
+			var y = Math.floor(Math.random() * 601);
+			var a = Math.floor(Math.random() * 360) * Math.PI / 180;
+			var s = Math.floor(Math.random() * 4) * 0.5;
+			ctx.translate(x, y);
+			ctx.rotate(a);
+			ctx.scale(s,s);
+			
+			var type = Math.floor(Math.random() * 5);
+			
+			switch(type){
+				case 0:
+					draw_A();
+					break;
+				case 1:
+					draw_E();
+					break;
+				case 2:
+					draw_I();
+					break;
+				case 3:
+					draw_O();
+					break;
+				default:
+					draw_U();
+			}
+			
+			ctx.restore();
+		}		
+	}
+		
+	</script>
+</head>
+
+<body onload="draw()">
+
+	<canvas id="my_canvas" width="800" height="600" style="border:1px solid black;"></canvas>
+	<img id="img_alphabet" src="asset/alphabet.jpg" style="display:none;"/>
+	
+</body>
+
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Plot waves</title>
+	<script>
+	
+	var ctx;
+	
+	var x0 = 140;
+	var y_5 = 880;
+	var x10 = 960;
+	var y5 = 60;
+	
+	function y_location(y){	
+		if(y<=-5)
+			return y_5;
+		else if(y>=5)
+			return y5;
+		else 
+			return y_5 + (y+5) * (y5 - y_5) / 10;
+	}
+	
+	function x_location(x){	
+		if(x<=0)
+			return x0;
+		else if(x>=10)
+			return x10;
+		else 
+			return x0 + x * (x10 - x0) / 10;
+	}
+	
+	function plot_sin_x(color){
+	
+		var x=0;
+		var y=0;
+	
+		ctx.lineWidth = 5;
+		ctx.strokeStyle = color;
+		
+		ctx.beginPath();
+		ctx.moveTo(x_location(x), y_location(y));
+		for (let i=0; i<1000; i++) {
+			ctx.lineTo(x_location(x), y_location(y));
+			x += 0.01;
+			y = Math.sin(x);
+		}
+		ctx.stroke();
+	}
+	
+	function plot_sin_3x(color){
+	
+		var x=0;
+		var y=0;
+	
+		ctx.lineWidth = 5;
+		ctx.strokeStyle = color;
+		
+		ctx.beginPath();
+		ctx.moveTo(x_location(x), y_location(y));
+		for (let i=0; i<1000; i++) {
+			ctx.lineTo(x_location(x), y_location(y));
+			x += 0.01;
+			y = Math.sin(3*x)/3;
+		}
+		ctx.stroke();
+	}
+	
+	function plot_sin_5x(color){
+	
+		var x=0;
+		var y=0;
+	
+		ctx.lineWidth = 5;
+		ctx.strokeStyle = color;
+		
+		ctx.beginPath();
+		ctx.moveTo(x_location(x), y_location(y));
+		for (let i=0; i<1000; i++) {
+			ctx.lineTo(x_location(x), y_location(y));
+			x += 0.01;
+			y = Math.sin(5*x)/5;
+		}
+		ctx.stroke();
+	}
+	
+	
+	function plot_sin_135x(color){
+	
+		var x=0;
+		var y=0;
+	
+		ctx.lineWidth = 5;
+		ctx.strokeStyle = color;
+		
+		ctx.beginPath();
+		ctx.moveTo(x_location(x), y_location(y));
+		for (let i=0; i<1000; i++) {
+			ctx.lineTo(x_location(x), y_location(y));
+			x += 0.01;
+			y = Math.sin(x) + Math.sin(3*x)/3 + Math.sin(5*x)/5;
+		}
+		ctx.stroke();
+	}
+	
+	function plot_square_wave(color){
+	
+		var x=0;
+		var y=0;
+	
+		ctx.lineWidth = 5;
+		ctx.strokeStyle = color;
+		
+		ctx.beginPath();
+		ctx.moveTo(x_location(x), y_location(y));
+		for (let i=0; i<1000; i++) {
+			ctx.lineTo(x_location(x), y_location(y));
+			x += 0.01;
+			//alert(Math.floor(x/Math.PI)%2);
+			if(Math.floor(x/Math.PI)%2==0)
+				y = 0.8;
+			else
+				y = -0.8;
+		}
+		ctx.stroke();
+	}
+	
+	function plot_sin_1Nx(N, color){
+	
+		var x=0;
+		var y;
+	
+		ctx.lineWidth = 5;
+		ctx.strokeStyle = color;
+		
+		ctx.beginPath();
+		ctx.moveTo(x_location(x), y_location(y));
+		for (let i=0; i<1000; i++) {
+			ctx.lineTo(x_location(x), y_location(y));
+			x += 0.01;
+			y = 0;
+			for(let j=1; j<=N; j+=2)
+				y += Math.sin(j*x)/j;
+		}
+		ctx.stroke();
+	}
+	
+	
+	function draw(){
+		ctx = document.getElementById("my_canvas").getContext("2d");
+		var image = document.getElementById("img_plot");
+		ctx.drawImage(image, 0,0);
+		
+		plot_sin_x("#808080");
+		plot_sin_3x("#808080");
+		plot_sin_5x("#808080");
+		plot_sin_135x("#00ff00");
+		plot_square_wave("#0000ff");
+		plot_sin_1Nx(99, "#ff0000");
+		
+		/*
+		ctx.lineWidth = 5;
+		ctx.strokeStyle = "#ff0000";
+		
+		ctx.beginPath();
+		ctx.moveTo(x_location(x), y_location(y));
+		for (let i=0; i<100; i++) {
+			ctx.lineTo(x_location(x), y_location(y));
+			x += 0.1;
+			y = 5 + Math.sin(x);
+			y += Math.sin(3*x)/3 + Math.sin(5*x)/5;
+			y += Math.sin(7*x)/7;
+			y += Math.sin(9*x)/9;
+			y += Math.sin(11*x)/11;
+			y += Math.sin(13*x)/13;
+			y += Math.sin(15*x)/15;
+		}
+		ctx.stroke();*/
+		
+		
+		//
+		
+		
+	}
+		
+	</script>
+</head>
+
+<body onload="draw()">
+
+	<canvas id="my_canvas" width="1024" height="1006" style="border:1px solid black;"></canvas>
+	<img id="img_plot" src="asset/plot.jpg" style="display:none;"/>
+	
+</body>
+
+</html>
