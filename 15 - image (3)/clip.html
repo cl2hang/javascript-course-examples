@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Stars</title>
+	<script>
+	
+	function draw(){
+		var ctx = document.getElementById("my_canvas").getContext("2d");
+		var image = document.getElementById("stars");
+	
+		var a = Math.PI * 2 / 5;
+
+		for(let i=0; i<30; i++) {
+
+			var r = Math.floor(Math.random()*30) + 10;
+			var x = Math.floor(Math.random()*401);
+			var y = Math.floor(Math.random()*401);			
+			
+			ctx.save();
+			ctx.translate(x, y);
+			ctx.rotate(-Math.PI/2);
+			
+			ctx.moveTo(r, 0);
+			ctx.lineTo(r*Math.cos(2*a), r*Math.sin(2*a));
+			ctx.lineTo(r*Math.cos(-a), r*Math.sin(-a));
+			ctx.lineTo(r*Math.cos(a), r*Math.sin(a));
+			ctx.lineTo(r*Math.cos(-2*a), r*Math.sin(-2*a));
+			ctx.closePath();
+			ctx.clip();
+			
+			ctx.drawImage(image, -200, -200, 400, 400);
+			ctx.restore();
+		}
+		
+		
+	}
+		
+	</script>
+</head>
+
+<body onload="draw()">
+
+	<canvas id="my_canvas" width="400" height="400" style="border:1px solid black;"></canvas>
+	<img id="stars" src="asset/stars.jpg" style="display:none;"/>
+	
+</body>
+
+</html>

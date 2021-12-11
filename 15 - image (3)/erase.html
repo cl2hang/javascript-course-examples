@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Erases</title>
+	<script>
+	
+	function draw(){
+		var ctx = document.getElementById("my_canvas").getContext("2d");
+		var image = document.getElementById("bg");
+		ctx.drawImage(image, 0, 0, 601, 401);
+
+		for(let i=0; i<50; i++) {
+
+			var s = Math.floor(Math.random()*30) + 5;
+			var x = Math.floor(Math.random()*601);
+			var y = Math.floor(Math.random()*401);			
+			
+			ctx.clearRect(x, y, s, s);
+		}
+		
+		
+	}
+		
+	</script>
+</head>
+
+<body onload="draw()">
+
+	<canvas id="my_canvas" width="600" height="400" style="border:1px solid black;"></canvas>
+	<img id="bg" src="asset/bg.jpg" style="display:none;"/>
+	
+</body>
+
+</html>
