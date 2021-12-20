@@ -12,7 +12,7 @@
 	
 		var a = Math.PI * 2 / 5;
 
-		for(let i=0; i<30; i++) {
+		for(let i=0; i<50; i++) {
 
 			var r = Math.floor(Math.random()*30) + 10;
 			var x = Math.floor(Math.random()*401);
@@ -21,7 +21,7 @@
 			ctx.save();
 			ctx.translate(x, y);
 			ctx.rotate(-Math.PI/2);
-			
+			ctx.beginPath();
 			ctx.moveTo(r, 0);
 			ctx.lineTo(r*Math.cos(2*a), r*Math.sin(2*a));
 			ctx.lineTo(r*Math.cos(-a), r*Math.sin(-a));

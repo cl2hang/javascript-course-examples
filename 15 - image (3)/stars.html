@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	
+		<script>
+		
+			var ctx;
+			var image;
+			
+			function draw_star() {
+				
+				ctx.save();
+				
+				var r = 200;
+				var A = Math.PI * 2 / 5;	//72 degrees
+				
+				ctx.translate(200, 200);
+				ctx.rotate(-Math.PI/2);
+				
+				ctx.beginPath();
+				ctx.moveTo(r*Math.cos(0), r*Math.sin(0));
+				ctx.lineTo(r*Math.cos(A*2), r*Math.sin(A*2));
+				ctx.lineTo(r*Math.cos(A*4), r*Math.sin(A*4));
+				ctx.lineTo(r*Math.cos(A), r*Math.sin(A));
+				ctx.lineTo(r*Math.cos(A*3), r*Math.sin(A*3));				
+				ctx.closePath();
+				ctx.clip();
+				
+				ctx.drawImage(image, -200, -200, 400, 400);
+				
+				ctx.restore();
+			}
+		
+			function draw() {
+				ctx = document.getElementById("my_canvas").getContext("2d");
+				image = document.getElementById("stars");
+				
+				draw_star();
+				
+				alert("hello");
+			}
+			
+		</script>
+	
+	</head>
+	
+	<body onload="draw()">
+		<canvas id="my_canvas" width="400" height="400" style="border: 1px solid black;"></canvas>
+		<img id="stars" src="asset/stars.jpg" style="display:none;"/>
+	</body>
+</html>
