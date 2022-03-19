@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Bouncing Balls</title>
+		<script>
+		
+			var hist = {
+				  X: [],
+				  Y: [],			
+				  tail: 0,
+				  is_full: function() { return this.tail>=5; },
+				  length: function() { return this.tail; },
+				  getX: function(i) { return this.X[i]; },
+				  getY: function(i) { return this.Y[i]; },
+											
+				  put: function(x, y) {
+				  
+						if(this.is_full()) {
+							for(let i=4; i>0; i--) {
+								this.X[i] = this.X[i-1];
+								this.Y[i] = this.Y[i-1];
+							}
+				  			this.X[0] = x;
+							this.Y[0] = y;
+						} else {
+							for(let i=this.tail; i>0; i--) {
+								this.X[i] = this.X[i-1];
+								this.Y[i] = this.Y[i-1];
+							}
+							this.X[0] = x;
+							this.Y[0] = y;
+							this.tail++;
+						}
+				  
+
+				  }
+			};
+			
+			var ctx;			
+			var dx;
+			var dy;
+			var timeout = 10;
+			
+			function draw_frame(){
+				ctx.clearRect(0, 0, 400, 400);
+				
+				ctx.fillStyle = "#0000ff";
+		
+				ctx.globalAlpha = 1;
+				for(let i=0; i<hist.length(); i++) {
+					ctx.beginPath();
+					ctx.arc(hist.getX(i), hist.getY(i), 10, 0, 2*Math.PI, true);
+					ctx.fill();									
+					ctx.globalAlpha -= 0.2;
+
+				}
+								
+				//update location
+				var x = hist.getX(0) + dx;
+				var y = hist.getY(0) + dy;
+
+				//if touch left border ...
+				if(x<10) {
+					x = 10 + (10-x);
+					dx = -dx;
+				}
+				
+				//if touch top border ...
+				if(y<10) {
+					y = 10 + (10-y);
+					dy = -dy;
+				}
+
+				//if touch right border ...
+				if(x>390) {
+					x = 390 - (x-390);
+					dx = -dx;
+				}
+				
+				//if touch bottom border ...
+				if(y>390) {
+					y = 390 - (y-390);
+					dy = -dy;
+				}
+				
+				hist.put(x, y);
+				
+				setTimeout(draw_frame, timeout);
+				timeout += 2;
+			}
+			
+
+			
+			function start(){
+				
+				var x = Math.floor(Math.random()*400);
+				var y = Math.floor(Math.random()*400);
+				dx = Math.floor(Math.random()*20) - 10;
+				dy = Math.floor(Math.random()*20) - 10;
+				hist.put(x, y);
+				
+				ctx = document.getElementById("my_canvas").getContext("2d");
+				draw_frame();
+			}
+			
+			function push() {
+				timeout = 10;
+			}
+			
+		</script>
+	</head>
+	
+	<body onload="start()">
+		<canvas id="my_canvas" width="400" height="400" style="border: 1px solid black;"></canvas>
+		<button onclick = "push()">Push</start>
+	</body>
+</html>

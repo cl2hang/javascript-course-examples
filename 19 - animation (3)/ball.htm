@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<html>
+	
+	<head>
+		<title>Bouncing Ball</title>
+		<script>
+			var ctx;
+			var balls = [];
+			var last_timestamp = 0;
+			
+			var colors = ["#ff0000", "#00ff00", "#0000ff",
+						  "#ff00ff", "#ffff00", "#00ffff",
+						  "#aa66aa", "#66aaaa", "#aaaa66",
+						  "#888888" ];
+	
+
+			function makeQ(){
+				return {
+					X: [],
+					Y: [],
+					capacity: 5,
+					size: 0,
+					
+					isFull: function(){return this.size>=this.capacity;},
+					getSize: function(){return this.size;},
+					peekX: function(i){return this.X[i];},
+					peekY: function(i){return this.Y[i];},
+					put: function(x, y) {
+						if(this.isFull()) {
+							
+							//queue is full
+							for(let i=this.size-1; i>=0; i--) {
+								this.X[i+1] = this.X[i];
+								this.Y[i+1] = this.Y[i];
+							}
+							this.X[0] = x;
+							this.Y[0] = y;
+							
+							
+						} else {
+						
+							//queue is not full				
+							for(let i=this.size-1; i>=0; i--) {
+								this.X[i+1] = this.X[i];
+								this.Y[i+1] = this.Y[i];
+							}
+							this.X[0] = x;
+							this.Y[0] = y;
+							this.size = this.size + 1;
+						}				
+				
+					}		
+				};
+			}
+		
+			function makeBall(color){
+				var ball = {
+					vx: 0,
+					vy: 0,
+					q: null,
+					c: color,
+					
+					init: function(){
+						this.vx = Math.random()*1.2 - 0.6;
+						this.vy = Math.random()*1.2 - 0.6;
+					
+						this.q = makeQ();					
+						var x = Math.floor(Math.random()*401);
+						var y = Math.floor(Math.random()*401);
+						this.q.put(x,y);
+						
+						
+						
+					},
+					
+					draw: function(ctx){
+						ctx.fillStyle = this.c;
+						for(let i=0; i<this.q.getSize(); i++) {
+							ctx.globalAlpha = 1.0 - 0.2*i;
+							ctx.beginPath();
+							ctx.arc(this.q.peekX(i), this.q.peekY(i), 10, 0, 2*Math.PI, true);
+							ctx.fill();
+						}
+					},
+					
+					move: function(elapse){
+						var x = this.q.peekX(0);
+						var y = this.q.peekY(0);
+						
+						x = x + this.vx * elapse;
+						y = y + this.vy * elapse;
+						
+						//adjust the position
+						if(x<=10) {
+							x = 10 + (10 - x);
+							this.vx = -this.vx;
+						} else if(x>=390) {
+							x = 390 - (x - 390);
+							this.vx = -this.vx;
+						}
+						
+						if(y<=10) {
+							y = 10 + (10 - y);
+							this.vy = -this.vy;
+						} else if(y>=390) {
+							y = 390 - (y - 390);
+							this.vy = -this.vy;
+						}
+						
+						this.q.put(x, y);
+					}
+					
+				};
+				
+				ball.init();
+				return ball;				
+			}
+			
+			//////////////////////////////////////////////////
+			
+			
+			function draw_frame(timestamp){
+		
+				ctx.clearRect(0, 0, 400, 400);
+			
+				for(let i=0; i<10; i++)
+					balls[i].draw(ctx);
+					
+				//move the ball
+				if(last_timestamp>0) {				
+					var elapse = timestamp - last_timestamp;		
+					for(let i=0; i<10; i++)
+						balls[i].move(elapse);
+				}
+				
+				last_timestamp = timestamp;
+				requestAnimationFrame(draw_frame);
+			}
+			
+
+			function start() {
+				ctx = document.getElementById("my_canvas").getContext("2d");
+
+				for(let i=0; i<10; i++)
+					balls[i] = makeBall(colors[i]);
+							
+				requestAnimationFrame(draw_frame);
+			}
+		</script>
+	</head>
+	
+	<body onload="start()">
+		<canvas id="my_canvas" width="400" height="400" 
+		        style="border: 1px solid black">
+		</canvas>
+	</body>
+
+</html>

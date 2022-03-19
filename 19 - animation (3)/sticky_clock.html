@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Timer</title>
+	<script>
+
+	var ctx;
+	
+	function format(tt, n) {
+		var s = tt.toString();
+		for(let i=0; i<n-s.length; i++)
+			s = "0" + s;
+		return s;
+	}
+
+	function draw_frame(timestamp){
+	
+		ctx.clearRect(0, 0, 400, 400);
+
+		var t = Math.floor(timestamp);
+		var ms = t%1000;
+		t = Math.floor(t / 1000);
+		var s = t%60;
+		t = Math.floor(t/60);
+		var m = t%60;
+		var h  = Math.floor(t/60);
+		
+		ctx.font = "50px arial";
+		ctx.fillText(format(h, 2) + ":" + format(m, 2) + ":" + format(s, 2) + ":" + format(ms, 3), 50, 200);
+
+		requestAnimationFrame(draw_frame);
+	}
+	
+	function init() {
+		ctx = document.getElementById("my_canvas").getContext("2d");
+		requestAnimationFrame(draw_frame);	
+	}
+	
+
+	
+	</script>
+</head>
+
+<body onload="init()">
+
+	<canvas id="my_canvas" width="400" height="400" style="border:1px solid black;"></canvas>
+	
+</body>
+
+</html>

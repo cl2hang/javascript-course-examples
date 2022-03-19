@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Digital Clock</title>
+	<script>
+
+	var ctx;
+	var timeout = 1;
+	
+	function format(tt, n) {
+		var s = tt.toString();
+		for(let i=0; i<n-s.length; i++)
+			s = "0" + s;
+		return s;
+	}
+
+	function draw_frame(){
+	
+		ctx.clearRect(0, 0, 400, 400);
+	
+		var now = new Date();
+		var ms = now.getMilliseconds();
+		var s = now.getSeconds();
+		var m = now.getMinutes();
+		var h  = now.getHours();
+		
+		ctx.font = "50px arial";
+		ctx.fillText(format(h, 2) + ":" + format(m, 2) + ":" + format(s, 2) + ":" + format(ms, 3), 50, 200);
+
+		setTimeout(draw_frame, timeout);
+		timeout = Math.ceil(timeout*1.1);
+	}
+	
+	function init() {
+		ctx = document.getElementById("my_canvas").getContext("2d");
+		draw_frame();		
+	}
+	
+	function grease() {
+		timeout = 1;
+	}
+
+	
+	</script>
+</head>
+
+<body onload="init()">
+
+	<canvas id="my_canvas" width="400" height="400" style="border:1px solid black;"></canvas>
+	<button onclick = "grease()">Grease</start>
+	
+</body>
+
+</html>
