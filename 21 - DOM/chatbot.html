@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Chatbot</title>
+	<script type="text/javascript" src="chatbot.js" ></script>
+	<script>
+	
+		var inputField;
+		var messagesContainer;
+	
+		function addChat(input, product) {
+		  
+		  let userDiv = document.createElement("div");
+		  userDiv.innerHTML = '<img src="user.png" height=20 style="padding-right:8px;"><span>' + input + '</span>';
+		  userDiv.style = "margin:auto;";
+		  messagesContainer.appendChild(userDiv);
+		  
+		  setTimeout(function(){
+  			  let botDiv = document.createElement("div");
+			  let botImg = document.createElement("img");
+			  let botText = document.createElement("span");
+			  botDiv.style = "text-align:end;";
+			  botImg.src = "bot.png";
+			  botImg.height = 20;
+			  botImg.style = "padding-left:8px;";
+			  botText.innerText = "Typing...";
+			  botDiv.appendChild(botText);
+			  botDiv.appendChild(botImg);
+			  messagesContainer.appendChild(botDiv);
+			  
+			  // Keep messages at most recent
+			  messagesContainer.scrollTop = messagesContainer.scrollHeight - messagesContainer.clientHeight;
+
+			  setTimeout(function(){
+				botText.innerText = product;
+				chatbot.speak(product);
+			  }, 2000);
+		  }, 200);
+		  
+		}
+		
+		function send(){
+			var input = inputField.value;
+			inputField.value = "";
+			//var output = chat(input);
+			var output = chatbot.chat(input);
+			addChat(input, output);
+		}
+	
+		function load(){
+			inputField = document.getElementById("input1");	
+			messagesContainer = document.getElementById("messages");			
+		}		
+
+	</script>
+	
+</head>
+
+<body onload="load()">
+	<div id="messages" style="height:500px; width:400px;border: 1px solid grey;"></div>
+	<input id="input1" type="text" placeholder="Say something..."/>
+	<input type="button" value="->" onclick="send()"/>
+</body>
+
+
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sun & Moon</title>
+		<script>
+			
+			var starfield = {			
+				stars: [],				
+				cx: 0,
+				cy: 0,
+				
+				init: function(cx, cy) {
+					
+					this.cx = cx;
+					this.cy = cy;
+					
+					var colorrange = [0,60,240];
+					
+					for (var i = 0; i < 500; i++) {
+						var idx = Math.floor(Math.random() * 3);
+						var hue = colorrange[idx];
+						var sat = Math.floor(Math.random() * 51) + 50;
+						
+						var star = {
+							x: Math.random() * cx,
+							y: Math.random() * cy,
+							r: Math.random() * 1.2,							
+							c: "hsl(" + hue + ", " + sat + "%, 88%)"
+						};
+						
+						this.stars[i] = star;											
+					}
+				},
+				
+				
+				draw: function(ctx) {				
+					
+					ctx.fillStyle = "#000000";
+					ctx.fillRect(0, 0, this.cx, this.cy);
+					for (var i = 0; i < 500; i++) {
+						var star = this.stars[i];
+						ctx.beginPath();
+						ctx.arc(star.x, star.y, star.r, 0, 2*Math.PI, true);
+						ctx.fillStyle = star.c;
+						ctx.fill();
+					}
+				}	
+			};
+			
+			var sun = {
+				x: 0,
+				y: 0,
+
+				init: function(x, y) {
+					this.x = x;
+					this.y = y;
+				},
+				
+				draw: function(ctx) {
+					ctx.fillStyle = "#ffcc33";
+					ctx.globalAlpha = 0.1;
+					var r = 40;
+					for(let i=0; i<10; i++) {
+						ctx.beginPath();
+						ctx.arc(this.x, this.y, r, 0, 2*Math.PI, true);
+						ctx.fill();
+						r = r - 2;
+					}
+					ctx.globalAlpha = 1.0;
+				}
+			};
+			
+			var earth = {
+				speed: 10,
+				angle: 0,
+				radius: 200,
+				sun: NaN,
+
+				init: function(sun) {
+					this.sun = sun;
+				},
+				
+				move: function(t) {
+					this.angle = this.angle + this.speed * t / 1000.0;
+					if(this.angle>=360)
+						this.angle = this.angle - 360;
+				},
+				
+				draw: function(ctx) {
+					
+					ctx.save();
+					
+					ctx.translate(sun.x, sun.y);
+					ctx.rotate(this.angle * Math.PI / 180);
+					
+					ctx.fillStyle = "#558de5";
+					ctx.globalAlpha = 0.7;
+					ctx.beginPath();
+					ctx.arc(0, -this.radius, 10, 0, 2*Math.PI, true);
+					ctx.fill();
+					ctx.globalAlpha = 1.0;
+					
+					ctx.restore();
+				}
+			};
+			
+			
+			var moon = {
+			
+				speed: 200,
+				angle: 0,
+				radius: 40,
+				sun: NaN,
+				earth: NaN,
+
+				init: function(earth, sun) {
+					this.sun = sun;
+					this.earth = earth;
+				},
+				
+				move: function(t) {
+					this.angle = this.angle + this.speed * t / 1000.0;
+					if(this.angle>=360)
+						this.angle = this.angle - 360;
+				},
+				
+				draw: function(ctx) {
+				
+					ctx.save();
+					
+					ctx.translate(sun.x, sun.y);
+					ctx.rotate(earth.angle * Math.PI / 180);
+					ctx.translate(0, -earth.radius);
+					ctx.rotate(this.angle * Math.PI / 180);
+					
+					ctx.fillStyle = "#dfe9e9";
+					ctx.globalAlpha = 0.7;
+					ctx.beginPath();
+					ctx.arc(0, -this.radius, 3, 0, 2*Math.PI, true);
+					ctx.fill();
+					ctx.globalAlpha = 1.0;
+					
+					ctx.restore();
+					
+				}
+			};
+			
+			var ctx; 
+			var last_t = 0;
+			
+			function draw_frame(t){
+			
+				var elapsed = t-last_t;
+				earth.move(elapsed);
+				moon.move(elapsed);
+				last_t = t;
+			
+				starfield.draw(ctx);
+				sun.draw(ctx);
+				earth.draw(ctx);
+				moon.draw(ctx);
+				
+				requestAnimationFrame(draw_frame);
+			}
+			
+			function start() {
+				ctx = document.getElementById("my_canvas").getContext("2d");
+				
+				starfield.init(1400, 600);
+									
+				sun.init(700, 300);				
+				earth.init(sun, earth);
+				moon.init(earth);				
+				
+				requestAnimationFrame(draw_frame);
+
+			}
+		</script>
+	</head>
+	
+	<body onload="start()">
+		<canvas id="my_canvas" width="1400" height="600" style="border: 1px solid black;"></canvas>
+	</body>
+</html>
