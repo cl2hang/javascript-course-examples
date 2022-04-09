@@ -1,0 +1,53 @@
+<!DOCTYPE html>  
+<html>  
+	<head>  
+		<title>Event Example</title>  
+		  
+		<script>
+
+			function change_color(){
+				var r = Math.floor(Math.random()*256);
+				var g = Math.floor(Math.random()*256);
+				var b = Math.floor(Math.random()*256);
+				var c = "rgb("+r+", "+g+", "+b+")";
+				document.body.style="background-color:" + c + ";";
+			}
+			
+			window.onload = function(){
+				var input = document.getElementById("my_input");
+				var btn = document.getElementById("my_btn");
+				
+				input.onkeydown = change_color;
+				btn.onclick = change_color;
+				
+				input.addEventListener("keydown", function(){
+					document.getElementById('audio_type').play();
+				});
+				
+				btn.addEventListener("click", function(){
+					document.getElementById('audio_click').play();
+				});
+				
+				change_color();
+			};
+		
+		</script>  
+	</head>  
+	
+	<body>  
+	
+		<div style="display:block;width:400px;height:400px;margin:auto;text-align:center;">
+			<input id="my_input" type="text" style="width:100%;"/>
+			<button id="my_btn">Click Me!</button>			
+		</div>
+		
+		<audio id="audio_click" style="display:none;">
+			<source src="click.mp3" type="audio/mpeg">
+		</audio>
+		
+		<audio id="audio_type" style="display:none;">
+			<source src="type.mp3" type="audio/mpeg">
+		</audio>
+	
+	</body>  
+</html> 
