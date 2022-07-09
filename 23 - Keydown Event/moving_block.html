@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Moving Block</title>
+		<script>
+			
+			var ctx;
+			
+			var block = {
+				cx: 200,
+				cy: 200,
+				draw: function(ctx){
+					ctx.fillRect(this.cx-10, this.cy-10, 20, 20); 
+				},
+				up: function(){
+					this.cy -= 20;
+				},
+				down: function(){
+					this.cy += 20;
+				},
+				left: function(){
+					this.cx -= 20;
+				},
+				right: function(){
+					this.cx += 20;
+				}				
+			};
+			
+			function onKeyDown(e){
+				switch(e.keyCode) {
+				
+					case 37:
+					case 65: 	//A - left
+						block.left();
+						break;
+					case 39:	
+					case 68: 	//D - right
+						block.right();
+						break;
+					case 38:
+					case 87:	//W - up
+						block.up();
+						break;
+					case 40:
+					case 83:	//S - down
+						block.down();
+						break;
+				}
+				
+				ctx.clearRect(0, 0, 400, 400);
+				block.draw(ctx);
+			}
+			
+			window.onload = function(){
+				var canvas = document.getElementById("my_canvas");
+				ctx = canvas.getContext("2d");
+				block.draw(ctx);
+				
+				canvas.addEventListener("keydown", onKeyDown, true);
+				canvas.focus();
+				
+			};
+			
+		</script>
+	</head>
+	
+	<body>
+		<canvas id="my_canvas" width=400 height=400 tabindex=0 style="border:1px solid black;"></canvas>
+	</body>
+
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>Spider</title>
+		
+		<script>
+			var ctx;
+			
+			var spider = {
+				img:NaN,
+				x: 200,
+				y: 200,
+				dx: 0,
+				dy: -2,
+				init:function(){
+					this.img = document.getElementById("spider");
+				},
+				up: function(){
+					this.dx = 0;
+					this.dy = -2; 
+				},
+				down: function(){
+					this.dx = 0;
+					this.dy = 2;
+				},
+				left: function(){
+					this.dx = -2;
+					this.dy = 0;
+				},
+				right: function(){
+					this.dx = 2;
+					this.dy = 0;					
+				},
+				move: function(){
+					this.x += this.dx;
+					this.y += this.dy;
+					
+					//restart ...
+					if(this.x<=10 || this.x>=390 || this.y<=10 || this.y>=390) {
+						this.x = 200;
+						this.y = 200;
+					}
+					
+				},
+				draw: function(ctx){
+					ctx.drawImage(this.img, this.x-10, this.y-10, 20, 20);
+				}
+			};
+			
+			var prey = {
+				img:NaN,
+				x: 200,
+				y: 200,
+				init:function(){
+					this.img = document.getElementById("prey");
+				},					
+				put: function(){
+					this.x = Math.floor(Math.random()*380) + 10;
+					this.y = Math.floor(Math.random()*380) + 10;
+				},
+				draw: function(ctx){
+					ctx.drawImage(this.img, this.x-5, this.y-5, 10, 10);
+				}
+			};
+			
+			function onKeyDown(e){
+				switch(e.keyCode){
+					case 37:	//left
+					case 65:	
+						spider.left();
+						break;
+					case 38: 	//up
+					case 87:
+						spider.up();
+						break;
+					case 39:    //right
+					case 68:	
+						spider.right();
+						break;
+					case 40:    //down
+					case 83:	
+						spider.down();
+						break;
+					default:
+						return;
+				}
+			}
+			
+			function draw_frame(t){
+				ctx.clearRect(0, 0, 400, 400);
+				prey.draw(ctx);
+				spider.draw(ctx);
+				spider.move();
+				
+				//eaten?
+				var distance = Math.sqrt( Math.pow(spider.x-prey.x, 2) +
+				                          Math.pow(spider.y-prey.y, 2) );
+					  
+				if(distance <= 10)
+					prey.put();
+				
+				requestAnimationFrame(draw_frame);
+			}
+			
+			window.onload = function(){
+				var canvas = document.getElementById("my_canvas");
+				ctx = canvas.getContext("2d");
+				
+				prey.init();
+				prey.put();
+				
+				spider.init();
+				spider.draw(ctx);
+				
+				canvas.addEventListener("keydown", onKeyDown, true);
+				canvas.focus();				
+				
+				requestAnimationFrame(draw_frame);
+
+			};
+		</script>
+	</head>
+	
+	<body>
+		<canvas id="my_canvas" width=400 height=400 
+		        tabindex=0 
+		        style="border:1px solid black;">
+		</canvas>
+		<img id="spider" src="spider.png" style="display:none;"/>
+		<img id="prey" src="prey.png" style="display:none;"/>
+	</body>
+
+</html>

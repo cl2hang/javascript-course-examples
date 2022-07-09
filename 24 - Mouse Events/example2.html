@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Sketch Board</title>
+		<script>
+			
+			var ctx;
+			var x = -1;
+			var y = -1;
+			
+			function onMouseMove(e){
+			
+				if(x>=0 && y>=0) {
+					ctx.beginPath();
+					ctx.moveTo(x, y);
+					ctx.lineTo(e.clientX, e.clientY);
+					ctx.stroke();
+				}
+				
+				x = e.clientX;
+				y = e.clientY;
+			}
+			
+			function onClick(e){
+				x = e.clientX;
+				y = e.clientY;
+				ctx.clearRect(0,0,400,400);
+			}
+			
+			
+			window.onload = function(){
+				var canvas = document.getElementById("my_canvas");
+				ctx = canvas.getContext("2d");
+				
+				canvas.addEventListener("mousemove", onMouseMove, true);
+				canvas.addEventListener("click", onClick, true);
+	
+			};
+			
+		</script>
+	</head>
+	
+	<body>
+		<canvas id="my_canvas" width=400 height=400 tabindex=0 style="border:1px solid black;"></canvas>
+	</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Swirl</title>
+		<script>
+			
+			var ctx;
+			
+			var swirl = {
+				x: 400,
+				y: 200,
+				particles:[],
+				locked: false,
+				
+				init: function(n){
+					for(let i=0; i<n; i++) {
+						var particle = {};
+						particle.r = Math.ceil(Math.random()*10)*10;
+						particle.a = Math.floor(Math.random()*360);
+
+						particle.c = "rgb("	+ Math.floor(Math.random()*256) + ","
+										    + Math.floor(Math.random()*256) + ","
+										    + Math.floor(Math.random()*256) + ")";	
+
+						particle.x0 = 400;
+						particle.y0 = 200;
+						particle.x1 = 400 + particle.r * Math.cos(particle.a * Math.PI / 180);
+						particle.y1 = 200 + particle.r * Math.sin(particle.a * Math.PI / 180);
+						
+
+						this.particles[i] = particle;
+					}
+				},
+				
+				toggleLocked: function(){
+					this.locked = !this.locked;
+				},
+				
+				tryMove: function(x,y){
+					if(!this.locked) {
+						this.x = x;
+						this.y = y;
+					}
+				},
+				
+				update: function(t) {
+					var theta = 0.1 * t;
+					for(let i=0; i<this.particles.length; i++) {
+						var particle = this.particles[i];
+						particle.a += theta;
+						if(particle.a>=360)
+							particle.a -= 360;
+						
+						particle.x0 = particle.x1;
+						particle.y0 = particle.y1;
+						particle.x1 = this.x + particle.r * Math.cos(particle.a * Math.PI / 180);
+						particle.y1 = this.y + particle.r * Math.sin(particle.a * Math.PI / 180);
+					}					
+				},
+				
+				draw: function(ctx) {
+			
+					ctx.save();
+					
+					ctx.lineWidth = 5;
+					
+					for(let i=0; i<this.particles.length; i++) {
+						var particle = this.particles[i];
+						ctx.strokeStyle = particle.c;
+						alert(ctx.strokeStyle);
+												
+						ctx.beginPath();
+						ctx.moveTo(particle.x0, particle.y0);
+						ctx.lineTo(particle.x1, particle.y1);
+						ctx.stroke();
+					}
+					
+					ctx.restore();
+				}
+				
+			};
+			
+			var t0 = 0;			
+			function draw_frame(t1){
+				
+				ctx.save();
+				ctx.fillStyle = "#000000";
+				ctx.globalAlpha = 0.05;
+				ctx.fillRect(0, 0, 800, 400);
+				ctx.restore();
+				
+				swirl.update(t1-t0);
+				swirl.draw(ctx);				
+				t0 = t1;
+			
+				requestAnimationFrame(draw_frame);
+			}
+			
+			function onMouseMove(e){
+				swirl.tryMove(e.clientX, e.clientY);
+			}
+			
+			function onClick(e){
+				swirl.toggleLocked();
+				swirl.tryMove(e.clientX, e.clientY);
+			}
+			
+			window.onload = function(){
+				var canvas = document.getElementById("my_canvas");
+				ctx = canvas.getContext("2d");
+				
+				canvas.addEventListener("mousemove", onMouseMove, true);
+				canvas.addEventListener("click", onClick, true);
+				
+				swirl.init(30);
+				
+				requestAnimationFrame(draw_frame);
+				
+			};
+			
+		</script>
+	</head>
+	
+	<body>
+		<canvas id="my_canvas" width=800 height=400 tabindex=0 style="border:1px solid black;"></canvas>
+	</body>
+
+</html>

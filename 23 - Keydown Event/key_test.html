@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Testing Keys</title>
+		<script>
+			
+			var ctx;
+			
+			function onKeyDown(e){
+				alert(e.keyCode);
+			}
+			
+			window.onload = function(){
+				var canvas = document.getElementById("my_canvas");
+				ctx = canvas.getContext("2d");
+				canvas.addEventListener("keydown", onKeyDown, true);
+				canvas.focus();
+				
+			};
+			
+		</script>
+	</head>
+	
+	<body>
+		<canvas id="my_canvas" width=400 height=400 tabindex=0 style="border:1px solid black;"></canvas>
+	</body>
+
+</html>

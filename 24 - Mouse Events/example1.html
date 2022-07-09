@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Mouse Move Example</title>
+		<script>
+			
+			var ctx;
+			
+			function onMouseMove(e){
+			
+				ctx.clearRect(0, 0, 400, 400);
+				
+				var text = "(" + e.clientX + ", " + e.clientY + ")";
+				ctx.fillText(text, 100, 100);
+			}
+			
+			
+			window.onload = function(){
+				var canvas = document.getElementById("my_canvas");
+				ctx = canvas.getContext("2d");
+				
+				canvas.addEventListener("mousemove", onMouseMove, true);
+	
+			};
+			
+		</script>
+	</head>
+	
+	<body>
+		<canvas id="my_canvas" width=400 height=400 tabindex=0 style="border:1px solid black;"></canvas>
+	</body>
+
+</html>
